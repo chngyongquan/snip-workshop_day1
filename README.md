@@ -82,3 +82,19 @@ git push
 ```
 
 Use the same workflow with `frontend` or `cli`. The project commit and the superproject pointer commit are separate, keeping each `main` snapshot pinned and reproducible.
+
+## Generated bundle
+
+`bundle/` is generated release output, not a source project; do not hand-edit it. The build script updates the three source submodules, builds the Angular app, and assembles the Bun server, static UI, and CLI into one deployable folder:
+
+```bash
+node scripts/build-bundle.mjs
+node scripts/build-bundle.mjs --push
+```
+
+The first command commits generated changes locally. The second publishes the `bundle` branch and updates `main`. To run the assembled app as one Bun process:
+
+```bash
+cd bundle
+bun start
+```
