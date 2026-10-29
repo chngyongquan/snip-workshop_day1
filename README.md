@@ -24,10 +24,10 @@ Each project lives at the root of its own orphan branch. The `main` branch mount
 
 ## Clone
 
-A plain clone leaves submodule directories unpopulated. Clone with submodules:
+A plain clone leaves submodule directories unpopulated. The GitHub repository currently defaults to `backend`, so select `main` and populate its submodules when cloning:
 
 ```bash
-git clone --recurse-submodules https://github.com/chngyongquan/snip-workshop_day1.git
+git clone --recurse-submodules --branch main https://github.com/chngyongquan/snip-workshop_day1.git
 cd snip-workshop_day1
 ```
 
