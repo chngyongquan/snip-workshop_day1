@@ -1,0 +1,88 @@
+<main class="page-shell">
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="Snip home"><span class="brand-mark">s</span>snip</a>
+    <span class="api-indicator"><span aria-hidden="true"></span> API · localhost:3000</span>
+  </header>
+
+  <section class="intro" aria-labelledby="page-title">
+    <p class="eyebrow">LINK SHORTENER <span>01 / 01</span></p>
+    <h1 id="page-title">Make long URLs<br />travel <em>light.</em></h1>
+    <p class="intro-copy">One clean link, ready to share.</p>
+
+    <form class="shorten-form" (submit)="submit($event)" novalidate>
+      <label for="destination">Destination URL</label>
+      <div class="input-row">
+        <input
+          id="destination"
+          type="url"
+          inputmode="url"
+          autocomplete="url"
+          placeholder="https://example.com/a/very/long/link"
+          [value]="urlInput()"
+          [disabled]="submitting()"
+          (input)="urlInput.set($any($event.target).value)"
+          aria-describedby="form-feedback"
+        />
+        <button type="submit" [disabled]="submitting()">
+          {{ submitting() ? 'Shortening…' : 'Shorten link' }}
+          <span aria-hidden="true">↗</span>
+        </button>
+      </div>
+      <p id="form-feedback" class="feedback error" role="alert" aria-live="polite">{{ error() }}</p>
+
+      @if (createdLink(); as link) {
+        <div class="created-result" role="status">
+          <span class="result-label">YOUR SHORT LINK</span>
+          <a [href]="link.shortUrl" target="_blank" rel="noopener">{{ link.shortUrl }}</a>
+        </div>
+      }
+    </form>
+  </section>
+
+  <section class="links-section" aria-labelledby="links-title">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">YOUR COLLECTION</p>
+        <h2 id="links-title">Recent links</h2>
+      </div>
+      <span class="link-count">{{ links().length }} total</span>
+    </div>
+
+    @if (linksError()) {
+      <p class="table-message error" role="alert">{{ linksError() }}</p>
+    } @else if (loadingLinks() && links().length === 0) {
+      <p class="table-message">Loading links…</p>
+    } @else if (links().length === 0) {
+      <p class="table-message empty-state">Your links will show up here.</p>
+    } @else {
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">SHORT LINK</th>
+              <th scope="col">DESTINATION</th>
+              <th scope="col" class="hits-column">HITS</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (link of links(); track link.code) {
+              <tr>
+                <td>
+                  <a class="short-code" [href]="link.shortUrl" target="_blank" rel="noopener">{{ link.code }}</a>
+                </td>
+                <td>
+                  <a class="destination" [href]="link.url" target="_blank" rel="noopener" [title]="link.url">
+                    {{ link.url }}
+                  </a>
+                </td>
+                <td class="hits-column"><span class="hit-count">{{ link.hits }}</span></td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  </section>
+
+  <footer class="page-footer"><span>SNIP / URL TOOL</span><span>Links reset when the server restarts</span></footer>
+</main>

@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+	color-scheme: light;
+	--ink: #172729;
+	--muted: #748487;
+	--line: #dce5e5;
+	--coral: #e26b55;
+	--coral-dark: #bd4f3d;
+	--mint: #229177;
+	font-family: "DM Sans", "Segoe UI", sans-serif;
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	background: #f5f8f7;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	min-width: 320px;
+	min-height: 100vh;
+	margin: 0;
+	background-image: linear-gradient(rgb(255 255 255 / 54%) 1px, transparent 1px);
+	background-size: 100% 32px;
+}
